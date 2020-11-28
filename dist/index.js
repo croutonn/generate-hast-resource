@@ -7584,8 +7584,8 @@ const constants_1 = __webpack_require__(211);
 const commit_file_1 = __importDefault(__webpack_require__(408));
 const find_file_1 = __importDefault(__webpack_require__(718));
 const repo_props_1 = __importDefault(__webpack_require__(815));
-// import commentMarkdown from './comment-markdown'
-// import createComment from './create-comment'
+const comment_markdown_1 = __importDefault(__webpack_require__(428));
+const create_comment_1 = __importDefault(__webpack_require__(246));
 const markdown_1 = __importDefault(__webpack_require__(565));
 const fs_1 = __webpack_require__(747);
 const file_path_1 = __importDefault(__webpack_require__(434));
@@ -7613,9 +7613,9 @@ function run() {
             });
             const resource = markdown_1.default(content);
             const filePath = file_path_1.default(file);
-            yield commit_file_1.default(resource, repoProps, filePath);
-            // const markdown = commentMarkdown(filePath)
-            // await createComment(markdown)
+            commit_file_1.default(resource, repoProps, filePath);
+            const markdown = comment_markdown_1.default(filePath);
+            yield create_comment_1.default(markdown);
         }));
     });
 }
@@ -12278,7 +12278,41 @@ function imageReference(h, node) {
 
 /***/ }),
 /* 245 */,
-/* 246 */,
+/* 246 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const get_pr_number_1 = __importDefault(__webpack_require__(754));
+const constants_1 = __webpack_require__(211);
+const github_api_1 = __importDefault(__webpack_require__(922));
+const createComment = (body) => __awaiter(void 0, void 0, void 0, function* () {
+    const [owner, repo] = constants_1.USER_REPO;
+    const prNumber = get_pr_number_1.default();
+    return github_api_1.default.issues.createComment({
+        owner,
+        repo,
+        issue_number: prNumber,
+        body,
+    });
+});
+exports.default = createComment;
+
+
+/***/ }),
 /* 247 */,
 /* 248 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
@@ -38281,7 +38315,23 @@ function textile(Prism) {
 
 
 /***/ }),
-/* 428 */,
+/* 428 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const constants_1 = __webpack_require__(211);
+function commentMarkdown(path) {
+    const [owner, repo] = constants_1.USER_REPO;
+    return `Your hast resource is ready:
+[${path}](https://github.com/${owner}/${repo}/raw/${constants_1.GITHUB_HEAD_REF}/${path})
+  `;
+}
+exports.default = commentMarkdown;
+
+
+/***/ }),
 /* 429 */
 /***/ (function(module) {
 

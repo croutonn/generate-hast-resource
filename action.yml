@@ -7,7 +7,7 @@ branding:
 inputs:
   commitMsg:
     description: 'commit message to be shown when adding hast resource'
-    default: 'just some wholesome content. yo all!'
+    default: '​generate a hast resource'
     required: false
 
 runs:

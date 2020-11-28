@@ -5,8 +5,8 @@ import { GITHUB_TOKEN, GITHUB_EVENT_NAME, REPO_DIRECTORY } from './constants'
 import commitFile from './commit-file'
 import findFile from './find-file'
 import getRepoProps from './repo-props'
-// import commentMarkdown from './comment-markdown'
-// import createComment from './create-comment'
+import commentMarkdown from './comment-markdown'
+import createComment from './create-comment'
 import markdownToHastResource from './markdown'
 import { readFileSync } from 'fs'
 import createFilePath from './file-path'
@@ -39,10 +39,10 @@ async function run() {
     const resource = markdownToHastResource(content)
     const filePath = createFilePath(file)
 
-    await commitFile(resource, repoProps, filePath)
+    commitFile(resource, repoProps, filePath)
 
-    // const markdown = commentMarkdown(filePath)
-    // await createComment(markdown)
+    const markdown = commentMarkdown(filePath)
+    await createComment(markdown)
   })
 }
 
