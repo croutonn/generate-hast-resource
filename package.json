@@ -52,7 +52,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && yarn build-release",
+      "pre-commit": "pretty-quick --staged && yarn build-release && git add dist/index.js",
       "pre-push": "yarn test"
     }
   }

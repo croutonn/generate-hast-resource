@@ -8,7 +8,7 @@ import getRepoProps from './repo-props'
 // import commentMarkdown from './comment-markdown'
 // import createComment from './create-comment'
 import markdownToHastResource from './markdown'
-import { readFile } from 'fs/promises'
+import { readFileSync } from 'fs'
 import createFilePath from './file-path'
 
 if (!GITHUB_TOKEN) {
@@ -33,7 +33,7 @@ async function run() {
   markdownFiles.forEach(async (file) => {
     const filename = file.filename
     const repoDirectory = REPO_DIRECTORY as string
-    const content = await readFile(`${repoDirectory}/${filename}`, {
+    const content = readFileSync(`${repoDirectory}/${filename}`, {
       encoding: 'utf-8',
     })
     const resource = markdownToHastResource(content)
