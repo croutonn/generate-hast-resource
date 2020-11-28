@@ -24,7 +24,7 @@ async function commitFile(
       path: filePath,
       branch: GITHUB_HEAD_REF,
       message: repoProps.commitMsg || '',
-      content: Buffer.from(content).toString('base64'),
+      content: Buffer.from(`${content}\n`).toString('base64'),
       ...COMMITTER,
     })
   } catch (err) {

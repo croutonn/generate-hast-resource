@@ -37208,7 +37208,7 @@ function commitFile(content, repoProps, filePath) {
         const [owner, repo] = constants_1.USER_REPO;
         try {
             yield github_api_1.default.repos.createOrUpdateFileContents(Object.assign({ owner,
-                repo, path: filePath, branch: constants_1.GITHUB_HEAD_REF, message: repoProps.commitMsg || '', content: Buffer.from(content).toString('base64') }, constants_1.COMMITTER));
+                repo, path: filePath, branch: constants_1.GITHUB_HEAD_REF, message: repoProps.commitMsg || '', content: Buffer.from(`${content}\n`).toString('base64') }, constants_1.COMMITTER));
         }
         catch (err) {
             core_1.error(`Adding a commit to branch ${constants_1.GITHUB_HEAD_REF} failed with ${err}`);
