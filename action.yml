@@ -1,0 +1,15 @@
+name: 'Generate HAST Resource'
+description: 'Helps users generate a HAST Resource from Markdown File'
+author: 'croutonn'
+branding:
+  icon: 'share-2'
+  color: 'orange'
+inputs:
+  commitMsg:
+    description: 'commit message to be shown when adding hast resource'
+    default: 'just some wholesome content. yo all!'
+    required: false
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

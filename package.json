@@ -1,0 +1,59 @@
+{
+  "name": "generate-hast-resource",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Helps users generate a HAST Resource from Markdown File",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build-release": "ncc build src/main.ts",
+    "format": "pretty-quick --pattern \"**/*.*(ts|tsx)\"",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:croutonn/generate-hast-resource.git"
+  },
+  "keywords": [
+    "actions",
+    "node"
+  ],
+  "author": "croutonn <croutonna@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@mapbox/rehype-prism": "^0.5.0",
+    "@octokit/plugin-retry": "^3.0.4",
+    "@zeit/ncc": "^0.22.3",
+    "front-matter": "^4.0.2",
+    "hast-util-from-parse5": "^6.0.1",
+    "lodash": "^4.17.20",
+    "marked": "^1.2.3",
+    "parse5": "^6.0.1",
+    "puppeteer-core": "^5.4.1",
+    "rehype-stringify": "^8.0.0",
+    "remark-html-katex": "^3.0.0",
+    "remark-math": "^4.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.0.0",
+    "unified": "^9.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.7",
+    "husky": "^4.3.0",
+    "jest": "^26.6.3",
+    "jest-circus": "^26.6.3",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.1.0",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && yarn build-release",
+      "pre-push": "yarn test"
+    }
+  }
+}
