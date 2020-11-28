@@ -37208,7 +37208,7 @@ function commitFile(content, repoProps, filePath) {
         const [owner, repo] = constants_1.USER_REPO;
         try {
             yield github_api_1.default.repos.createOrUpdateFileContents(Object.assign({ owner,
-                repo, path: filePath, branch: constants_1.GITHUB_HEAD_REF, message: repoProps.commitMsg || '', content }, constants_1.COMMITTER));
+                repo, path: filePath, branch: constants_1.GITHUB_HEAD_REF, message: repoProps.commitMsg || '', content: Buffer.from(content).toString('base64') }, constants_1.COMMITTER));
         }
         catch (err) {
             core_1.error(`Adding a commit to branch ${constants_1.GITHUB_HEAD_REF} failed with ${err}`);
@@ -38503,19 +38503,8 @@ function iecst(Prism) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const getDirPathFromContentUrl = (contentUrl) => {
-    /**
-     * @example
-     * https://api.github.com/repos/octocat/Hello-World/contents/foo/bar/file1.txt?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e
-     * => foo/bar/
-     */
-    const path = contentUrl.split('/').slice(7, -1).join('/');
-    return path ? `${path}/` : '';
-};
 const createFilePath = (file) => {
-    const dirPath = getDirPathFromContentUrl(file.contents_url);
-    const filename = file.filename.replace(/\.(md|markdown)$/iu, '.json');
-    return `${dirPath}${filename}`;
+    return file.filename.replace(/\.(md|markdown)$/iu, '.json');
 };
 exports.default = createFilePath;
 
